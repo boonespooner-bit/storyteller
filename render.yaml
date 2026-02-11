@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: storyteller
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: DATA_DIR
+        value: /opt/render/project/src/data
+    disk:
+      name: storyteller-data
+      mountPath: /opt/render/project/src/data
+      sizeGB: 1

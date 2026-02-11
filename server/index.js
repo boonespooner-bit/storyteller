@@ -19,7 +19,8 @@ app.use(cors());
 app.use(express.json());
 
 // Serve uploaded files
-app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
+const dataDir = process.env.DATA_DIR || path.join(__dirname, '..');
+app.use('/uploads', express.static(path.join(dataDir, 'uploads')));
 
 // API routes
 app.use('/api/auth', authRoutes);

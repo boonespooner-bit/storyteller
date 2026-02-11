@@ -9,7 +9,8 @@ import { authenticateToken } from '../middleware/auth.js';
 import { transcribeAudio, generateNarrative } from '../services/gemini.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const uploadsDir = path.join(__dirname, '..', '..', 'uploads');
+const dataDir = process.env.DATA_DIR || path.join(__dirname, '..', '..');
+const uploadsDir = path.join(dataDir, 'uploads');
 
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
