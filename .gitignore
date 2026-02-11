@@ -6,4 +6,6 @@ uploads/*.wav
 uploads/*.mp3
 uploads/*.ogg
 *.db
+*.db-shm
+*.db-wal
 .env
