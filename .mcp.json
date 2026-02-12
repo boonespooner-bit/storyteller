@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "render-mcp": {
+      "type": "sse",
+      "url": "https://mcp.render.com/sse?key=rnd_eCG0gNXpQStCJG6YqvBQp7Z7dIih"
+    }
+  }
+}
