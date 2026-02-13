@@ -1,9 +1,16 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+let resend;
 const FROM_EMAIL = process.env.FROM_EMAIL || 'Storyteller <onboarding@resend.dev>';
 
 export async function sendPasswordResetEmail(to, resetToken, baseUrl) {
+  if (!resend) {
+    if (!process.env.RESEND_API_KEY) {
+      throw new Error('RESEND_API_KEY is not configured');
+    }
+    resend = new Resend(process.env.RESEND_API_KEY);
+  }
+
   const resetLink = `${baseUrl}/reset-password/${resetToken}`;
 
   await resend.emails.send({
