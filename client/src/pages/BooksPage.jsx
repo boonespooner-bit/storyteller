@@ -12,6 +12,8 @@ export default function BooksPage() {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(null);
   const [newTitle, setNewTitle] = useState('');
   const [newAuthor, setNewAuthor] = useState('');
+  const [creating, setCreating] = useState(false);
+  const [createError, setCreateError] = useState('');
   const navigate = useNavigate();
 
   const fetchBooks = useCallback(async () => {
@@ -48,8 +50,12 @@ export default function BooksPage() {
     fetchBooks();
   }, [fetchBooks]);
 
-  const handleCreateBook = async () => {
-    if (!newTitle.trim() || !newAuthor.trim()) return;
+  const handleCreateBook = async (e) => {
+    e.preventDefault();
+    if (!newTitle.trim() || !newAuthor.trim() || creating) return;
+
+    setCreating(true);
+    setCreateError('');
 
     try {
       const book = await booksApi.create(newTitle.trim(), newAuthor.trim());
@@ -66,6 +72,9 @@ export default function BooksPage() {
       navigate(`/book/${book.id}`);
     } catch (err) {
       console.error('Failed to create book:', err);
+      setCreateError(err.message || 'Failed to create book. Please try again.');
+    } finally {
+      setCreating(false);
     }
   };
 
@@ -221,39 +230,47 @@ export default function BooksPage() {
 
       {/* Create Book Modal */}
       {showCreateModal && (
-        <div className="overlay" onClick={() => setShowCreateModal(false)}>
+        <div className="overlay" onClick={() => { if (!creating) setShowCreateModal(false); }}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
             <div className="modal-handle" />
             <h2 className="modal-title">Create New Book</h2>
 
-            <div className="form-group">
-              <label className="form-label">Book Title</label>
-              <input
-                className="form-input"
-                placeholder="My Life Story"
-                value={newTitle}
-                onChange={(e) => setNewTitle(e.target.value)}
-                autoFocus
-              />
-            </div>
+            <form onSubmit={handleCreateBook}>
+              <div className="form-group">
+                <label className="form-label">Book Title</label>
+                <input
+                  className="form-input"
+                  placeholder="My Life Story"
+                  value={newTitle}
+                  onChange={(e) => setNewTitle(e.target.value)}
+                  required
+                  autoFocus
+                />
+              </div>
 
-            <div className="form-group">
-              <label className="form-label">Author Name</label>
-              <input
-                className="form-input"
-                placeholder="Your name"
-                value={newAuthor}
-                onChange={(e) => setNewAuthor(e.target.value)}
-              />
-            </div>
+              <div className="form-group">
+                <label className="form-label">Author Name</label>
+                <input
+                  className="form-input"
+                  placeholder="Your name"
+                  value={newAuthor}
+                  onChange={(e) => setNewAuthor(e.target.value)}
+                  required
+                />
+              </div>
 
-            <button
-              className="btn btn-primary btn-full"
-              onClick={handleCreateBook}
-              disabled={!newTitle.trim() || !newAuthor.trim()}
-            >
-              Create Book
-            </button>
+              {createError && (
+                <div className="auth-error" style={{ marginBottom: 16 }}>{createError}</div>
+              )}
+
+              <button
+                type="submit"
+                className="btn btn-primary btn-full"
+                disabled={!newTitle.trim() || !newAuthor.trim() || creating}
+              >
+                {creating ? 'Creating...' : 'Create Book'}
+              </button>
+            </form>
           </div>
         </div>
       )}
