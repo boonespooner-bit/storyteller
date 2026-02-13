@@ -21,7 +21,7 @@ import { useAuth } from '../contexts/AuthContext.jsx';
 import { books as booksApi, chapters as chaptersApi } from '../utils/api.js';
 import { useAudioRecorder } from '../hooks/useAudioRecorder.js';
 
-function SortableChapter({ chapter, index, onClick, onTitleChange }) {
+function SortableChapter({ chapter, index, onClick, onTitleChange, onDelete }) {
   const {
     attributes,
     listeners,
@@ -116,6 +116,18 @@ function SortableChapter({ chapter, index, onClick, onTitleChange }) {
           <div className="status-dot ready" title="Ready" />
         ) : null}
       </div>
+      <button
+        className="chapter-delete-btn"
+        title="Delete chapter"
+        onClick={(e) => {
+          e.stopPropagation();
+          if (window.confirm('Delete this chapter? This cannot be undone.')) {
+            onDelete(chapter.id);
+          }
+        }}
+      >
+        &#x2715;
+      </button>
     </div>
   );
 }
@@ -232,6 +244,15 @@ export default function BookDetailPage() {
     }
   };
 
+  const handleDeleteChapter = async (chapterId) => {
+    try {
+      await chaptersApi.delete(chapterId);
+      setChaptersList((prev) => prev.filter((ch) => ch.id !== chapterId));
+    } catch (err) {
+      console.error('Failed to delete chapter:', err);
+    }
+  };
+
   const handleBookTitleChange = async (newTitle) => {
     if (!newTitle.trim() || !book) return;
     try {
@@ -335,6 +356,7 @@ export default function BookDetailPage() {
                   index={index}
                   onClick={() => navigate(`/book/${bookId}/chapter/${chapter.id}`)}
                   onTitleChange={handleTitleChange}
+                  onDelete={handleDeleteChapter}
                 />
               ))}
             </div>

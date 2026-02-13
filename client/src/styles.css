@@ -427,6 +427,27 @@ html, body {
   flex-shrink: 0;
 }
 
+.chapter-delete-btn {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 14px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s, color 0.2s;
+}
+
+.chapter-item:hover .chapter-delete-btn {
+  opacity: 1;
+}
+
+.chapter-delete-btn:hover {
+  color: #e74c3c;
+}
+
 .status-dot {
   width: 8px;
   height: 8px;
