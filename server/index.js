@@ -38,6 +38,12 @@ app.get('/{*path}', (req, res) => {
   }
 });
 
+// API error handler — return JSON instead of Express 5's default HTML
+app.use('/api', (err, req, res, next) => {
+  console.error('API error:', err);
+  res.status(err.status || 500).json({ error: err.message || 'Internal server error' });
+});
+
 app.listen(PORT, () => {
   console.log(`Storyteller server running on port ${PORT}`);
 });
