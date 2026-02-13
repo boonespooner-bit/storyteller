@@ -57,7 +57,13 @@ router.post('/', authenticateToken, (req, res) => {
 
   const db = getDb();
   const id = uuidv4();
-  const userId = req.user ? req.user.id : null;
+  let userId = req.user ? req.user.id : null;
+
+  // Verify the user still exists in the database (token may outlive the user row)
+  if (userId) {
+    const userExists = db.prepare('SELECT 1 FROM users WHERE id = ?').get(userId);
+    if (!userExists) userId = null;
+  }
 
   db.prepare('INSERT INTO books (id, user_id, title, author) VALUES (?, ?, ?, ?)').run(
     id, userId, title, author
