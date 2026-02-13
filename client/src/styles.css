@@ -160,6 +160,12 @@ html, body {
   width: 100%;
 }
 
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 .btn-icon {
   width: 40px;
   height: 40px;
