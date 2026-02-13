@@ -7,6 +7,7 @@ import { getDb } from './db/setup.js';
 import authRoutes from './routes/auth.js';
 import bookRoutes from './routes/books.js';
 import chapterRoutes from './routes/chapters.js';
+import shareRoutes from './routes/shares.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -26,6 +27,7 @@ app.use('/uploads', express.static(path.join(dataDir, 'uploads')));
 app.use('/api/auth', authRoutes);
 app.use('/api/books', bookRoutes);
 app.use('/api/chapters', chapterRoutes);
+app.use('/api', shareRoutes);
 
 // Serve frontend in production
 const distPath = path.join(__dirname, '..', 'dist');

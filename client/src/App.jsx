@@ -6,6 +6,8 @@ import BookDetailPage from './pages/BookDetailPage.jsx';
 import ChapterDetailPage from './pages/ChapterDetailPage.jsx';
 import AuthPage from './pages/AuthPage.jsx';
 import ResetPasswordPage from './pages/ResetPasswordPage.jsx';
+import SharedBookPage from './pages/SharedBookPage.jsx';
+import SharedChapterPage from './pages/SharedChapterPage.jsx';
 
 export default function App() {
   const { loading } = useAuth();
@@ -28,6 +30,8 @@ export default function App() {
         <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
         <Route path="/book/:bookId" element={<BookDetailPage />} />
         <Route path="/book/:bookId/chapter/:chapterId" element={<ChapterDetailPage />} />
+        <Route path="/shared/:token" element={<SharedBookPage />} />
+        <Route path="/shared/:token/chapter/:chapterId" element={<SharedChapterPage />} />
       </Routes>
     </div>
   );

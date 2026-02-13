@@ -180,3 +180,33 @@ export const chapters = {
       headers: getHeaders(),
     }).then(handleResponse),
 };
+
+// Shares
+export const shares = {
+  invite: (bookId, email) =>
+    fetch(`${API_BASE}/books/${bookId}/share`, {
+      method: 'POST',
+      headers: getHeaders(),
+      body: JSON.stringify({ email }),
+    }).then(handleResponse),
+
+  list: (bookId) =>
+    fetch(`${API_BASE}/books/${bookId}/shares`, {
+      headers: getHeaders(),
+    }).then(handleResponse),
+
+  revoke: (shareId) =>
+    fetch(`${API_BASE}/shares/${shareId}`, {
+      method: 'DELETE',
+      headers: getHeaders(),
+    }).then(handleResponse),
+
+  getBook: (token) =>
+    fetch(`${API_BASE}/shared/${token}`).then(handleResponse),
+
+  getChapters: (token) =>
+    fetch(`${API_BASE}/shared/${token}/chapters`).then(handleResponse),
+
+  getChapter: (token, chapterId) =>
+    fetch(`${API_BASE}/shared/${token}/chapters/${chapterId}`).then(handleResponse),
+};

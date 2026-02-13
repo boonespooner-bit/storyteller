@@ -953,6 +953,50 @@ html, body {
   border-radius: 3px;
 }
 
+/* Share items */
+.share-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-sm);
+}
+
+.share-email {
+  font-size: 14px;
+  color: var(--text);
+}
+
+.share-revoke-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 14px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.share-revoke-btn:hover {
+  color: var(--danger);
+}
+
+/* Read-only narrative */
+.narrative-readonly {
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: var(--font-serif);
+  font-size: 15px;
+  line-height: 1.8;
+  padding: 16px;
+  white-space: pre-wrap;
+}
+
 /* Responsive */
 @media (min-width: 481px) {
   .app {

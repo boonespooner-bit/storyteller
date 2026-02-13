@@ -53,6 +53,15 @@ function initializeDb() {
       FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE
     );
 
+    CREATE TABLE IF NOT EXISTS book_shares (
+      id TEXT PRIMARY KEY,
+      book_id TEXT NOT NULL,
+      email TEXT NOT NULL,
+      token TEXT NOT NULL UNIQUE,
+      created_at TEXT DEFAULT (datetime('now')),
+      FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE
+    );
+
     CREATE TABLE IF NOT EXISTS password_reset_tokens (
       id TEXT PRIMARY KEY,
       user_id TEXT NOT NULL,

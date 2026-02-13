@@ -18,7 +18,7 @@ import {
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { useAuth } from '../contexts/AuthContext.jsx';
-import { books as booksApi, chapters as chaptersApi } from '../utils/api.js';
+import { books as booksApi, chapters as chaptersApi, shares as sharesApi } from '../utils/api.js';
 import { useAudioRecorder } from '../hooks/useAudioRecorder.js';
 
 function SortableChapter({ chapter, index, onClick, onTitleChange, onDelete }) {
@@ -142,6 +142,11 @@ export default function BookDetailPage() {
   const [chaptersList, setChaptersList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showAuthPrompt, setShowAuthPrompt] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [shareEmail, setShareEmail] = useState('');
+  const [sharesList, setSharesList] = useState([]);
+  const [shareLoading, setShareLoading] = useState(false);
+  const [shareError, setShareError] = useState('');
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
@@ -261,6 +266,44 @@ export default function BookDetailPage() {
     }
   };
 
+  const openShareModal = async () => {
+    setShowShareModal(true);
+    setShareError('');
+    setShareEmail('');
+    try {
+      const data = await sharesApi.list(bookId);
+      setSharesList(data);
+    } catch (err) {
+      console.error('Failed to load shares:', err);
+    }
+  };
+
+  const handleShareInvite = async (e) => {
+    e.preventDefault();
+    if (!shareEmail.trim()) return;
+    setShareLoading(true);
+    setShareError('');
+    try {
+      await sharesApi.invite(bookId, shareEmail.trim());
+      setShareEmail('');
+      const data = await sharesApi.list(bookId);
+      setSharesList(data);
+    } catch (err) {
+      setShareError(err.message);
+    } finally {
+      setShareLoading(false);
+    }
+  };
+
+  const handleRevokeShare = async (shareId) => {
+    try {
+      await sharesApi.revoke(shareId);
+      setSharesList((prev) => prev.filter((s) => s.id !== shareId));
+    } catch (err) {
+      console.error('Failed to revoke share:', err);
+    }
+  };
+
   const handleBookTitleChange = async (newTitle) => {
     if (!newTitle.trim() || !book) return;
     try {
@@ -313,15 +356,24 @@ export default function BookDetailPage() {
           onBlur={(e) => handleBookTitleChange(e.target.value)}
           onKeyDown={(e) => { if (e.key === 'Enter') e.target.blur(); }}
         />
-        <button
-          className="header-back"
-          onClick={handleExport}
-          title="Export as text"
-          disabled={chaptersList.length === 0}
-          style={{ opacity: chaptersList.length === 0 ? 0.3 : 1 }}
-        >
-          &#x2913;
-        </button>
+        <div className="header-actions">
+          <button
+            className="header-back"
+            onClick={openShareModal}
+            title="Share book"
+          >
+            &#x21E7;
+          </button>
+          <button
+            className="header-back"
+            onClick={handleExport}
+            title="Export as text"
+            disabled={chaptersList.length === 0}
+            style={{ opacity: chaptersList.length === 0 ? 0.3 : 1 }}
+          >
+            &#x2913;
+          </button>
+        </div>
       </div>
 
       <div className="page">
@@ -398,6 +450,61 @@ export default function BookDetailPage() {
           </div>
         </div>
       </div>
+
+      {/* Share modal */}
+      {showShareModal && (
+        <div className="overlay modal-centered" onClick={() => setShowShareModal(false)}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-title">Share Book</div>
+            <p style={{ fontSize: 13, color: 'var(--text-secondary)', marginBottom: 16 }}>
+              Invite someone to read your book. They will receive a link to a read-only view.
+            </p>
+            <form onSubmit={handleShareInvite} style={{ display: 'flex', gap: 8, marginBottom: 16 }}>
+              <input
+                className="form-input"
+                type="email"
+                placeholder="Email address"
+                value={shareEmail}
+                onChange={(e) => setShareEmail(e.target.value)}
+                required
+                style={{ flex: 1 }}
+              />
+              <button className="btn btn-primary btn-sm" type="submit" disabled={shareLoading}>
+                {shareLoading ? '...' : 'Invite'}
+              </button>
+            </form>
+            {shareError && (
+              <div className="auth-error" style={{ marginBottom: 12 }}>{shareError}</div>
+            )}
+            {sharesList.length > 0 && (
+              <>
+                <div className="section-label">Shared with</div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                  {sharesList.map((share) => (
+                    <div key={share.id} className="share-item">
+                      <span className="share-email">{share.email}</span>
+                      <button
+                        className="share-revoke-btn"
+                        onClick={() => handleRevokeShare(share.id)}
+                        title="Revoke access"
+                      >
+                        &#x2715;
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+            <button
+              className="btn btn-ghost btn-full"
+              onClick={() => setShowShareModal(false)}
+              style={{ marginTop: 16 }}
+            >
+              Done
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 }
