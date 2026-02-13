@@ -73,6 +73,40 @@ router.post('/', authenticateToken, (req, res) => {
   res.status(201).json(book);
 });
 
+// Export book as text
+router.get('/:id/export', authenticateToken, (req, res) => {
+  const db = getDb();
+  const book = db.prepare('SELECT * FROM books WHERE id = ?').get(req.params.id);
+
+  if (!book) {
+    return res.status(404).json({ error: 'Book not found' });
+  }
+
+  if (book.user_id && (!req.user || req.user.id !== book.user_id)) {
+    return res.status(403).json({ error: 'Access denied' });
+  }
+
+  const chapters = db.prepare(
+    'SELECT title, ai_narrative, position FROM chapters WHERE book_id = ? ORDER BY position ASC'
+  ).all(req.params.id);
+
+  let text = `${book.title}\nby ${book.author}\n\n`;
+
+  chapters.forEach((ch, i) => {
+    text += `Chapter ${i + 1}: ${ch.title}\n\n`;
+    text += (ch.ai_narrative || '(No narrative yet)') + '\n\n';
+    if (i < chapters.length - 1) {
+      text += '---\n\n';
+    }
+  });
+
+  const filename = book.title.replace(/[^a-zA-Z0-9 ]/g, '').replace(/\s+/g, '_') + '.txt';
+
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+  res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+  res.send(text);
+});
+
 // Update book
 router.put('/:id', authenticateToken, (req, res) => {
   const db = getDb();

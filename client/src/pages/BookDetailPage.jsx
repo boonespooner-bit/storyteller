@@ -253,6 +253,14 @@ export default function BookDetailPage() {
     }
   };
 
+  const handleExport = async () => {
+    try {
+      await booksApi.export(bookId);
+    } catch (err) {
+      console.error('Export failed:', err);
+    }
+  };
+
   const handleBookTitleChange = async (newTitle) => {
     if (!newTitle.trim() || !book) return;
     try {
@@ -305,7 +313,15 @@ export default function BookDetailPage() {
           onBlur={(e) => handleBookTitleChange(e.target.value)}
           onKeyDown={(e) => { if (e.key === 'Enter') e.target.blur(); }}
         />
-        <div style={{ width: 40 }} />
+        <button
+          className="header-back"
+          onClick={handleExport}
+          title="Export as text"
+          disabled={chaptersList.length === 0}
+          style={{ opacity: chaptersList.length === 0 ? 0.3 : 1 }}
+        >
+          &#x2913;
+        </button>
       </div>
 
       <div className="page">
