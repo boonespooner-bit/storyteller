@@ -772,6 +772,8 @@ html, body {
   border-radius: var(--radius-sm);
   font-size: 13px;
   margin-bottom: 16px;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .auth-link {

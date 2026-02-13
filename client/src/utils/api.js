@@ -18,6 +18,12 @@ function getAuthHeader() {
 }
 
 async function handleResponse(res) {
+  const contentType = res.headers.get('content-type') || '';
+  if (!contentType.includes('application/json')) {
+    throw new Error(
+      res.ok ? 'Unexpected response from server' : `Server error (${res.status})`
+    );
+  }
   const data = await res.json();
   if (!res.ok) {
     throw new Error(data.error || 'Request failed');
