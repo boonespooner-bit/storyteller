@@ -5,6 +5,7 @@ import BooksPage from './pages/BooksPage.jsx';
 import BookDetailPage from './pages/BookDetailPage.jsx';
 import ChapterDetailPage from './pages/ChapterDetailPage.jsx';
 import AuthPage from './pages/AuthPage.jsx';
+import ResetPasswordPage from './pages/ResetPasswordPage.jsx';
 
 export default function App() {
   const { loading } = useAuth();
@@ -24,6 +25,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<BooksPage />} />
         <Route path="/auth" element={<AuthPage />} />
+        <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
         <Route path="/book/:bookId" element={<BookDetailPage />} />
         <Route path="/book/:bookId/chapter/:chapterId" element={<ChapterDetailPage />} />
       </Routes>

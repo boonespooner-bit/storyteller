@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import { v4 as uuidv4 } from 'uuid';
 import { OAuth2Client } from 'google-auth-library';
 import { getDb } from '../db/setup.js';
+import { sendPasswordResetEmail } from '../services/email.js';
 
 const router = Router();
 
@@ -128,10 +129,10 @@ router.post('/forgot-password', async (req, res) => {
       uuidv4(), user.id, token, expiresAt
     );
 
-    // In production, send email. For now, log the token.
-    console.log(`Password reset token for ${email}: ${token}`);
+    const baseUrl = `${req.protocol}://${req.get('host')}`;
+    await sendPasswordResetEmail(email, token, baseUrl);
 
-    res.json({ message: 'If an account with that email exists, a reset link has been sent.', resetToken: token });
+    res.json({ message: 'If an account with that email exists, a reset link has been sent.' });
   } catch (err) {
     console.error('Forgot password error:', err);
     res.status(500).json({ error: 'Failed to process request' });
