@@ -674,37 +674,6 @@ html, body {
   line-height: 1.7;
 }
 
-/* Auth prompt */
-.auth-prompt {
-  background: linear-gradient(135deg, var(--primary-light), var(--primary));
-  border: 1px solid var(--card-border);
-  border-radius: var(--radius);
-  padding: 24px 20px;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.auth-prompt h3 {
-  font-family: var(--font-serif);
-  font-size: 17px;
-  margin-bottom: 8px;
-}
-
-.auth-prompt p {
-  font-size: 13px;
-  color: var(--text-secondary);
-  margin-bottom: 20px;
-  line-height: 1.5;
-}
-
-.auth-prompt-actions {
-  display: flex;
-  gap: 12px;
-}
-
-.auth-prompt-actions .btn {
-  flex: 1;
-}
 
 /* Auth page */
 .auth-page {

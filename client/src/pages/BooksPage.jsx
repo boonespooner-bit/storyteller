@@ -149,28 +149,13 @@ export default function BooksPage() {
 
       {/* Page */}
       <div className="page">
-        {/* Hero + auth for non-authenticated users */}
+        {/* Hero for non-authenticated users */}
         {!isAuthenticated && (
-          <>
-            <div className="hero-section">
-              <h1 className="hero-title">Story Braid</h1>
-              <p className="hero-subtitle">Create and save your stories</p>
-              <p className="hero-description">Story Braid weaves together your stories to create long form books and stories. Record audio of your memories, and we'll transcribe and transform them into beautifully written chapters.</p>
-            </div>
-
-            <div className="auth-prompt">
-              <h3>Get Started</h3>
-              <p>Create an account to save your books and access them from any device.</p>
-              <div className="auth-prompt-actions">
-                <button className="btn btn-primary" onClick={() => navigate('/auth')}>
-                  Create Account
-                </button>
-                <button className="btn btn-secondary" onClick={() => navigate('/auth')}>
-                  Sign In
-                </button>
-              </div>
-            </div>
-          </>
+          <div className="hero-section">
+            <h1 className="hero-title">Story Braid</h1>
+            <p className="hero-subtitle">Create and save your stories</p>
+            <p className="hero-description">Story Braid weaves together your stories to create long form books and stories. Record audio of your memories, and we'll transcribe and transform them into beautifully written chapters.</p>
+          </div>
         )}
 
         {loading ? (
