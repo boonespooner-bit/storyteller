@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e94560"/>
+      <stop offset="100%" stop-color="#ff6b81"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f0a050"/>
+      <stop offset="100%" stop-color="#ffc078"/>
+    </linearGradient>
+    <linearGradient id="g3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7b68ee"/>
+      <stop offset="100%" stop-color="#9b8afb"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#1a1a2e"/>
+  <!-- Strand 1 (red/pink) - starts left, crosses to right, crosses back left -->
+  <path d="M18 6 C18 14, 22 18, 32 22 C42 26, 46 30, 46 34 C46 38, 42 42, 32 46 C22 50, 18 54, 18 58" stroke="url(#g1)" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <!-- Strand 2 (amber) - starts center, goes right then left then center -->
+  <path d="M32 6 C32 10, 42 16, 46 22 C50 28, 42 32, 32 34 C22 36, 14 40, 18 46 C22 52, 30 56, 38 58" stroke="url(#g2)" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <!-- Strand 3 (purple) - starts right, crosses left, crosses back -->
+  <path d="M46 6 C46 12, 36 14, 24 18 C14 22, 14 28, 18 32 C22 36, 36 38, 46 42 C52 44, 50 52, 48 58" stroke="url(#g3)" stroke-width="5" stroke-linecap="round" fill="none"/>
+</svg>
