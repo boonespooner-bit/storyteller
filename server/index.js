@@ -45,5 +45,5 @@ app.use('/api', (err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Storyteller server running on port ${PORT}`);
+  console.log(`Story Braid server running on port ${PORT}`);
 });

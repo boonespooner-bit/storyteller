@@ -1,7 +1,7 @@
 {
-  "name": "storyteller",
+  "name": "story-braid",
   "version": "1.0.0",
-  "description": "The Storyteller App - Record your life stories and turn them into books",
+  "description": "Story Braid - Weaves together your stories to create long form books",
   "main": "server/index.js",
   "type": "module",
   "scripts": {

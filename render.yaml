@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: storyteller
+    name: story-braid
     runtime: node
     plan: free
     buildCommand: npm install --include=dev && npm run build

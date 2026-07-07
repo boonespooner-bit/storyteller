@@ -114,7 +114,7 @@ export default function BooksPage() {
     <>
       {/* Header */}
       <div className="header">
-        <span className="header-title">The Storyteller</span>
+        <span className="header-title">Story Braid</span>
         <div className="header-actions">
           {isAuthenticated ? (
             <div style={{ position: 'relative' }}>
@@ -152,6 +152,7 @@ export default function BooksPage() {
         {/* Auth prompt for non-authenticated users */}
         {!isAuthenticated && (
           <div className="auth-prompt">
+            <p className="auth-prompt-tagline">Story Braid weaves together your stories to create long form books and stories.</p>
             <h3>Save Your Stories</h3>
             <p>Create an account to save your books and access them from any device.</p>
             <button className="btn btn-primary btn-sm" onClick={() => navigate('/auth')}>

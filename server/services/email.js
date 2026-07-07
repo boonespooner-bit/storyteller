@@ -1,7 +1,7 @@
 import { Resend } from 'resend';
 
 let resend;
-const FROM_EMAIL = process.env.FROM_EMAIL || 'Storyteller <onboarding@resend.dev>';
+const FROM_EMAIL = process.env.FROM_EMAIL || 'Story Braid <onboarding@resend.dev>';
 
 function getResend() {
   if (!resend) {
@@ -21,10 +21,10 @@ export async function sendPasswordResetEmail(to, resetToken, baseUrl) {
   await r.emails.send({
     from: FROM_EMAIL,
     to,
-    subject: 'Reset your Storyteller password',
+    subject: 'Reset your Story Braid password',
     html: `
       <h2>Password Reset</h2>
-      <p>You requested a password reset for your Storyteller account.</p>
+      <p>You requested a password reset for your Story Braid account.</p>
       <p><a href="${resetLink}" style="display:inline-block;padding:12px 24px;background:#4a6741;color:#fff;text-decoration:none;border-radius:6px;">Reset Password</a></p>
       <p>Or copy this link: ${resetLink}</p>
       <p>This link expires in 1 hour. If you didn't request this, you can safely ignore this email.</p>
@@ -43,7 +43,7 @@ export async function sendShareInviteEmail(to, bookTitle, authorName, shareToken
     subject: `You've been invited to read "${bookTitle}"`,
     html: `
       <h2>You&rsquo;re invited to read a story</h2>
-      <p><strong>${authorName}</strong> has shared their book <em>&ldquo;${bookTitle}&rdquo;</em> with you on Storyteller.</p>
+      <p><strong>${authorName}</strong> has shared their book <em>&ldquo;${bookTitle}&rdquo;</em> with you on Story Braid.</p>
       <p><a href="${shareLink}" style="display:inline-block;padding:12px 24px;background:#e94560;color:#fff;text-decoration:none;border-radius:6px;">Read the Book</a></p>
       <p>Or copy this link: ${shareLink}</p>
     `,

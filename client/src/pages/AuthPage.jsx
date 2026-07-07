@@ -106,8 +106,8 @@ export default function AuthPage() {
 
   return (
     <div className="auth-page">
-      <h1 className="auth-logo">The Storyteller</h1>
-      <p className="auth-subtitle">Record your stories. Create your book.</p>
+      <h1 className="auth-logo">Story Braid</h1>
+      <p className="auth-subtitle">Story Braid weaves together your stories to create long form books and stories.</p>
 
       {mode !== 'forgot' && (
         <div className="auth-tabs">

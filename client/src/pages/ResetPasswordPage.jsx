@@ -34,7 +34,7 @@ export default function ResetPasswordPage() {
   if (success) {
     return (
       <div className="auth-page">
-        <h1 className="auth-logo">The Storyteller</h1>
+        <h1 className="auth-logo">Story Braid</h1>
         <div style={{
           background: 'rgba(76, 175, 80, 0.1)',
           border: '1px solid rgba(76, 175, 80, 0.3)',
@@ -55,7 +55,7 @@ export default function ResetPasswordPage() {
 
   return (
     <div className="auth-page">
-      <h1 className="auth-logo">The Storyteller</h1>
+      <h1 className="auth-logo">Story Braid</h1>
       <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 20, marginBottom: 16 }}>
         Set New Password
       </h2>
