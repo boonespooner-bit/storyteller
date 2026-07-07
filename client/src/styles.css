@@ -646,36 +646,64 @@ html, body {
   z-index: 50;
 }
 
+/* Hero section */
+.hero-section {
+  text-align: center;
+  padding: 24px 0 8px;
+  margin-bottom: 20px;
+}
+
+.hero-title {
+  font-family: var(--font-serif);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.hero-subtitle {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.hero-description {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
 /* Auth prompt */
 .auth-prompt {
   background: linear-gradient(135deg, var(--primary-light), var(--primary));
   border: 1px solid var(--card-border);
   border-radius: var(--radius);
-  padding: 20px;
+  padding: 24px 20px;
   margin-bottom: 20px;
   text-align: center;
 }
 
-.auth-prompt-tagline {
-  font-family: var(--font-serif);
-  font-size: 15px;
-  color: var(--text);
-  line-height: 1.6;
-  margin-bottom: 16px;
-  font-style: italic;
-}
-
 .auth-prompt h3 {
   font-family: var(--font-serif);
-  font-size: 16px;
+  font-size: 17px;
   margin-bottom: 8px;
 }
 
 .auth-prompt p {
   font-size: 13px;
   color: var(--text-secondary);
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   line-height: 1.5;
+}
+
+.auth-prompt-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.auth-prompt-actions .btn {
+  flex: 1;
 }
 
 /* Auth page */
