@@ -6,7 +6,7 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 export async function transcribeAudio(audioFilePath) {
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
 
     const audioBuffer = fs.readFileSync(audioFilePath);
     const base64Audio = audioBuffer.toString('base64');
@@ -46,7 +46,7 @@ export async function generateNarrative(transcript, allChapters, book) {
   if (!transcript) return null;
 
   try {
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
 
     // Build context from other chapters
     const otherChaptersContext = allChapters
