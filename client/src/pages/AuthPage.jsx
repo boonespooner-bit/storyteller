@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext.jsx';
 import { auth as authApi } from '../utils/api.js';
 
-const GOOGLE_CLIENT_ID = '214965469628-lrqjb3cr07o0fqk9o7l06vgev18qhq27.apps.googleusercontent.com';
+const GOOGLE_CLIENT_ID = '506008787157-7orl3tnloggv7nfrki480273q3dd6pnb.apps.googleusercontent.com';
 
 function GoogleIcon() {
   return (
